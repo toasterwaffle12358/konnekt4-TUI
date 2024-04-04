@@ -10,7 +10,8 @@ import com.googlecode.lanterna.terminal.Terminal
 
 fun main(args: Array<String>) {
     //initializing values
-    var board = board().boardList
+    val board = board().boardList
+    val boardTheme = SimpleTheme.makeTheme(false, TextColor.RGB(52, 116, 235), TextColor.RGB(14, 21, 24), TextColor.RGB(14, 21, 24), TextColor.RGB(14, 21, 24), TextColor.RGB( 235, 232, 200 ), TextColor.RGB(14, 21, 24), TextColor.RGB(14, 21, 24))
 
     //function for printing the board
     fun printBoard() {
@@ -47,13 +48,18 @@ fun main(args: Array<String>) {
     //creating board panels
     for (boardRow in board) {
         val rowPanel: Panel = Panel().setLayoutManager(LinearLayout(Direction.HORIZONTAL))
-        rowPanel.addComponent(Label(" ╣"))
+        var rowPanelTempString: String = ""
+        rowPanel.addComponent(Label(" ╠╢"))
         for (spot in boardRow) {
-            rowPanel.addComponent(Label(" ■ "))
+            rowPanelTempString = rowPanelTempString.plus("[ ]")
         }
-        rowPanel.addComponent(Label("╠ "))
+        rowPanel.addComponent(Label(rowPanelTempString))
+        println(rowPanelTempString)
+        rowPanel.addComponent(Label("╟╣ "))
         panel.addComponent(rowPanel)
     }
+    panel.addComponent(Label(" ╠╬═══════════════════════╬╣"))
+    panel.theme = boardTheme
 
     //adding label to panel
     //panel.addComponent(Label("testing testing testing!"))
